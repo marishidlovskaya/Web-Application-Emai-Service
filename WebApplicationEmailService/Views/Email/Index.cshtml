@@ -1,0 +1,130 @@
+﻿<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+ <link href="~/css/emailpage.css" rel="stylesheet" />
+ <script src="~/js/site.js"></script>
+
+@using System.Globalization
+@using WebApplicationEmailService.Models.ViewModels
+@model List<MessagesViewModel>
+@{
+    this.Layout = "_Layout";
+}
+<br>
+<br>
+<div class="new-message-form">
+    <div class="container bootdey">
+        <div class="email-app">
+            <main>
+                <p class="text-center">New Message</p>
+
+                <div class="form-row mb-3">
+                    <label for="to" class="col-2 col-sm-1 col-form-label">Recipient:</label>
+                    <div class="col-10 col-sm-11">
+                        <input type="text" class="form-control" id="to" name="receipient_name" placeholder="Type user name">
+                        <input type="hidden" id="hfuser" name="recipientId" />
+                    </div>
+                </div>
+                <div class="form-row mb-3">
+                    <label for="cc" class="col-2 col-sm-1 col-form-label">Title:</label>
+                    <div class="col-10 col-sm-11">
+                        <input type="text" class="form-control" id="cc" name="message_title" placeholder="Type message title">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-11 ml-auto">
+                        <div class="form-group mt-4">
+                            <textarea class="form-control" id="message" name="message_body" rows="8" placeholder="Type Text message"></textarea>
+                        </div>
+                        <div class="form-group" style="display:flex;">
+                            <button type="submit" id="send_email" class="btn btn-success">Send</button>
+                            <div id="successMessage">Message was sent sucessfully!
+                            </div>
+                            <div id="errorMessage">
+                                No user exists! Please check the name.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+@*_____________________Inbox emails_________________________________________*@
+<div class="inbox-table">
+
+    <h3 class="title-inbox">Inbox emails</h3>
+
+    <!-- table -->
+    <div class="table-all-messages">
+        <div id="table-wrapper">
+            <div id="table-scroll">
+        <table id="table-inbox-mess" class="table table-bordered">
+                <thead>
+                        <tr style="background-color:#BBBBBB;">
+
+                            <th style="width: 20%;" scope="col">Sender</th>
+                            <th style="width: 20%;" scope="col">Title</th>
+                            <th style="width: 40%;" scope="col">Text</th>
+                            <th style="width: 20%;" scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                {
+                            <tr >
+                                <td>
+                                @item.Sender
+                            </td>
+                                <td>
+                                @item.Title
+                            </td>
+                                <td style="white-space: nowrap; max-width: 60%; max-height: 20px; overflow: hidden; text-overflow: ellipsis;">
+                                @item.Text
+                            </td>
+                                <td>
+                                    @item.Date.ToString("MM/dd/yyyy HH:mm");
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+            </div>
+    </div>
+</div> <!-- table -->
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var refresher = setInterval("update_content();", 1000); 
+
+      
+        $("#to").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Email/GetUsers",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { value: item.id, label: item.name };
+                        }))
+
+                    }
+                })
+            },
+            minLength: 1,
+            select: function (e, i) {
+                e.preventDefault();
+                $("#to").val(i.item.label);
+                $('#hfuser').val(i.item.value);
+                
+            },
+
+        });
+    })
+</script>

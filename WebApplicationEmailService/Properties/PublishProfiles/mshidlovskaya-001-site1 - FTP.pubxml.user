@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <History>False|2023-01-28T16:31:22.7327484Z;</History>
+    <LastFailureDetails />
+    <_PublishTargetUrl>ftp://win5184.site4now.net:21/auth</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>01/26/2023 08:54:38</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>01/28/2023 19:31:16</publishTime>
+    </File>
+    <File Include="Microsoft.Win32.SystemEvents.dll">
+      <publishTime>11/15/2019 09:36:56</publishTime>
+    </File>
+    <File Include="System.CodeDom.dll">
+      <publishTime>11/15/2019 09:36:56</publishTime>
+    </File>
+    <File Include="System.Data.SqlClient.dll">
+      <publishTime>01/17/2020 22:28:34</publishTime>
+    </File>
+    <File Include="System.Drawing.Common.dll">
+      <publishTime>09/18/2018 20:38:14</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

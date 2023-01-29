@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h3 class="display-4">Enter your name:</h3>      
+    <div class="enter-tool">
+        @using (Html.BeginForm("LogIn", "Home", FormMethod.Post, new { style = "display: flex;" }))
+        {
+            <input type="text" id="username" class="text", name="name_" required>
+            <button class="btn btn-outline-success" id="enter" type="submit">Enter</button>
+        }
+    </div>
+</div>
+
+
+
+
+
+
